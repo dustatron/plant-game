@@ -108,7 +108,6 @@ $(document).ready(function() {
         <button id="${plant.plantId}" class="btn-success"> Add Soil </button>
         <button class="btn-info"> Add Light </button>
         <button class="btn-danger"> Add Water </button>
-
       </div>
       `);
     });
