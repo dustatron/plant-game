@@ -1,9 +1,14 @@
+const counterFunction = () => {
+  let counter = 0;
+  return () => {
+    counter++;
+    return counter;
+  };
+};
+
 const plantStore = () => {
   let currentPlants = [];
-  // let plantCounter = 0;
   return (plantObj) => {
-    // plantCounter++;
-    // plantObj.PlantId = plantCounter;
     currentPlants.push(plantObj);
     return currentPlants;
   };
@@ -40,22 +45,24 @@ const changeState = (prop) => {
 // We create two functions using our function factory. We could easily create many more.
 
 // const feed = changeState("soil");
+const plantCount = counterFunction();
 const giveWater = changeState("water")(5);
 const giveLight = changeState("light")(5);
 const giveFood = changeState("soil")(5);
-const addId = changeState("plantID")((plantID += 1));
+const addId = changeState("plantId")(plantCount());
 
 const plantState = plantStore();
 
 const addPlant = (plant) => {
-  const newplant = plantState(plant);
-  console.log(newplant);
+  const newPlant = plantState(plant);
+  console.log(newPlant);
+  return newPlant;
 };
 const PlantOne = storeState(plant);
 
-addPlant(PlantOne());
-addPlant(PlantOne(giveFood));
-addPlant(PlantOne(giveFood));
+// addPlant(PlantOne(addId));
+// addPlant(PlantOne(addId));
+// addPlant(PlantOne(addId));
 
 // const addPlantOne = plantState(PlantOne(giveFood));
 // const addPlantTwo = plantState(PlantOne(giveFood));
@@ -79,4 +86,28 @@ $(document).ready(function() {
     const newState = PlantOne(giveWater);
     $("#water-value").text(newState.water);
   });
+
+  $("#add-plant").click(function() {
+    const plantList = addPlant(PlantOne(addId));
+    renderPlants(plantList);
+  });
+
+  $("#plant-box").on("click", "button", function() {
+    console.log("click", this.id);
+  });
+
+  function renderPlants(list) {
+    $("#plant-box").html("");
+    list.forEach((plant) => {
+      $("#plant-box").append(`
+      <div class="card"> 
+        <div>plant # ${plant.plantId} </div>
+        <div>Soil # ${plant.soil} </div>
+        <div>light # ${plant.light} </div>
+        <div>water # ${plant.water} </div>
+        <button id="${plant.plantId}" class="btn-success"> Add Soil </button>
+      </div>
+      `);
+    });
+  }
 });
