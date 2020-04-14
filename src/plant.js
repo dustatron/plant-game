@@ -72,20 +72,20 @@ const PlantOne = storeState(plant);
 $(document).ready(function() {
   // $("#soil-value").text(newState.soil);
   // This function has side effects because we are using jQuery. Manipulating the DOM will always be a side effect.
-  $("#feed").click(function() {
-    const newState = PlantOne(giveFood);
-    $("#soil-value").text(newState.soil);
-  });
+  // $("#feed").click(function() {
+  //   const newState = PlantOne(giveFood);
+  //   $("#soil-value").text(newState.soil);
+  // });
 
-  $("#light").click(function() {
-    const newState = PlantOne(giveLight);
-    $("#light-value").text(newState.light);
-  });
+  // $("#light").click(function() {
+  //   const newState = PlantOne(giveLight);
+  //   $("#light-value").text(newState.light);
+  // });
 
-  $("#water").click(function() {
-    const newState = PlantOne(giveWater);
-    $("#water-value").text(newState.water);
-  });
+  // $("#water").click(function() {
+  //   const newState = PlantOne(giveWater);
+  //   $("#water-value").text(newState.water);
+  // });
 
   $("#add-plant").click(function() {
     const plantList = addPlant(PlantOne(addId));
@@ -106,6 +106,9 @@ $(document).ready(function() {
         <div>light # ${plant.light} </div>
         <div>water # ${plant.water} </div>
         <button id="${plant.plantId}" class="btn-success"> Add Soil </button>
+        <button class="btn-info"> Add Light </button>
+        <button class="btn-danger"> Add Water </button>
+
       </div>
       `);
     });
